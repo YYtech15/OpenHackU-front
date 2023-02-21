@@ -1,24 +1,21 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp/view/practice/create_account_sub_page.dart';
 import 'package:myapp/view/screen.dart';
-import 'package:myapp/view/signIn/create_account_page.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class LoginSubPage extends StatefulWidget {
+  const LoginSubPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<LoginSubPage> createState() => _LoginSubPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  TextEditingController emailController = TextEditingController();
+class _LoginSubPageState extends State<LoginSubPage> {
+  TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController nameController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -54,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
                           text: 'こちら',
                           style: const TextStyle(color: Colors.blue),
                           recognizer: TapGestureRecognizer()..onTap = (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const CreateAccountPage()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const CreateAccountSubPage()));
                           }
                       ),
                     ]

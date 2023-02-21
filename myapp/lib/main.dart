@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/view/practice/login_sub_page.dart';
 import 'package:myapp/view/signIn/login_page.dart';
 
 void main(){
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
       ),
-      home: const LoginPage(),
+      home: const LoginSubPage(),
     );
   }
 }

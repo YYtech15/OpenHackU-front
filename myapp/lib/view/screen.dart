@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/view/user/account_page.dart';
-import 'package:myapp/view/user/camera_page.dart';
+import 'package:myapp/view/user/data_page.dart';
+import 'package:myapp/view/user/home_page.dart';
 import 'package:myapp/view/user/timer_page.dart';
 
 class Screen extends StatefulWidget {
@@ -12,7 +13,7 @@ class Screen extends StatefulWidget {
 
 class _ScreenState extends State<Screen> {
   int selectedIndex = 0;
-  List<Widget> pageList = [const CameraPage(), const AccountPage()];
+  List<Widget> pageList = [const DataPage(),const HomePage(), const AccountPage()];
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +21,7 @@ class _ScreenState extends State<Screen> {
       body: pageList[selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.stacked_bar_chart_outlined), label: ''),
           BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: ''),
           BottomNavigationBarItem(icon: Icon(Icons.perm_identity_outlined), label: '')
         ],
@@ -34,7 +36,7 @@ class _ScreenState extends State<Screen> {
         onPressed: (){
           Navigator.push(context, MaterialPageRoute(builder: (context) => const TimerPage()));
         },
-        child: const Icon(Icons.access_alarm_outlined),
+        child: const Icon(Icons.photo_camera_outlined),
       ),
     );
   }

@@ -1,16 +1,29 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
-class CreateAccountPage extends StatefulWidget {
-  const CreateAccountPage({Key? key}) : super(key: key);
+class CreateAccountSubPage extends StatefulWidget {
+  const CreateAccountSubPage({Key? key}) : super(key: key);
 
   @override
-  State<CreateAccountPage> createState() => _CreateAccountPageState();
+  State<CreateAccountSubPage> createState() => _CreateAccountSubPageState();
 }
 
-class _CreateAccountPageState extends State<CreateAccountPage> {
+class _CreateAccountSubPageState extends State<CreateAccountSubPage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
+  File? image;
+  ImagePicker picker = ImagePicker();
+
+  Future<void> getImageFromGallery() async{
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if(pickedFile != null){
+      setState(() {
+        image = File(pickedFile.path);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,12 +59,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 ),
               ),
               Container(
-                width: 300,
-                child: TextField(
-                  controller: confirmPasswordController,
-                  decoration: const InputDecoration(hintText: 'パスワードの確認', hintStyle: TextStyle(color: Colors.grey)),
+                  width: 300,
+                  child: TextField(
+                    controller: confirmPasswordController,
+                    decoration: const InputDecoration(hintText: 'パスワードの確認', hintStyle: TextStyle(color: Colors.grey)),
+                  ),
                 ),
-              ),
               SizedBox(height: 100),
               ElevatedButton(
                   onPressed: (){
