@@ -1,5 +1,12 @@
+import 'dart:io';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:myapp/model/account.dart';
 import 'package:myapp/utils/authentication.dart';
+import 'package:myapp/utils/firestore.dart';
 
 class RegisterAccount extends StatefulWidget {
   const RegisterAccount({Key? key}) : super(key: key);
@@ -12,6 +19,26 @@ class _RegisterAccountState extends State<RegisterAccount> {
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  File? image;
+  ImagePicker picker = ImagePicker();
+
+  Future<void> getImageFromGallery() async{
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if(pickedFile != null){
+      setState(() {
+        image = File(pickedFile.path);
+      });
+    }
+  }
+
+  Future<String>upLoadImage(String uid) async{
+    final FirebaseStorage storageInstance = FirebaseStorage.instance;
+    final Reference ref = storageInstance.ref();
+    await ref.child(uid).putFile(image!);
+    String downloadUrl = await storageInstance.ref(uid).getDownloadURL();
+    return downloadUrl;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +56,18 @@ class _RegisterAccountState extends State<RegisterAccount> {
           child: Column(
             children: [
               const SizedBox(height: 30),
+              GestureDetector(
+                onTap: (){
+                  getImageFromGallery();
+                },
+                child: CircleAvatar(
+                  foregroundImage: image == null ? null : FileImage(image!),
+                  radius: 40,
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.blue,
+                  child: const Icon(Icons.add),
+                ),
+              ),
               SizedBox(
                 width: 300,
                 child: TextField(
@@ -59,10 +98,19 @@ class _RegisterAccountState extends State<RegisterAccount> {
               const SizedBox(height: 100),
               ElevatedButton(
                   onPressed: () async{
-                    if(nameController.text.isNotEmpty && emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
+                    if(nameController.text.isNotEmpty && image != null && emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
                       var result = await Authentication.signUp(email: emailController.text, pass: passwordController.text);
-                      if(result==true) {
-                        Navigator.pop(context);
+                      if(result is UserCredential) {
+                        String imagePath = await upLoadImage(result.user!.uid);
+                        Account newAccount = Account(
+                          id: result.user!.uid,
+                          name: nameController.text,
+                          imagePath: imagePath,
+                        );
+                        var resultSet = await UserFireStore.setUser(newAccount);
+                        if (resultSet== true) {
+                          Navigator.pop(context);
+                        }
                       }
                     }
                     else{ print('全ての項目に入力をして下さい'); }

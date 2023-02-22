@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp/model/account.dart';
 import 'package:myapp/model/post.dart';
+import 'package:myapp/utils/authentication.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -11,13 +13,7 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  Account myAccount = Account(
-      id:'1',
-      name:'YY',
-      selfIntroduction:'○○大学受験予定',
-      createdTime:DateTime.now(),
-      updatedTime:DateTime.now()
-  );
+  Account myAccount = Authentication.myAccount!;
 
   List<Post> postList = [
     Post(

@@ -1,10 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Account{
   String id;
   String name;
   String selfIntroduction;
   String imagePath;
-  DateTime? createdTime;
-  DateTime? updatedTime;
+  Timestamp? createdTime;
+  Timestamp? updatedTime;
 
   Account(
     {

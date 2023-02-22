@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/utils/authentication.dart';
+import 'package:myapp/utils/firestore.dart';
 import 'package:myapp/view/screen.dart';
 import 'package:myapp/view/signIn/register_account.dart';
 
@@ -62,9 +64,12 @@ class _LoginPageState extends State<LoginPage> {
               ElevatedButton(
                   onPressed: () async{
                     var result = await Authentication.emailSignIn(email: emailController.text, pass: passwordController.text);
-                    if(result == true)
+                    if(result is UserCredential)
                     {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Screen()));
+                      var resultGet = await UserFireStore.getUser(result.user!.uid);
+                      if(resultGet == true){
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Screen()));
+                      }
                     }
                   },
                   child: const Text('ログイン')
