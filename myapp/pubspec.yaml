@@ -42,6 +42,9 @@ dependencies:
   path_provider: ^2.0.12
   video_player: ^2.5.1
   neon_circular_timer: ^0.0.7
+  http: ^0.13.5
+  firebase_core: ^2.7.0
+  firebase_auth: ^4.2.9
 
 dev_dependencies:
   flutter_test:

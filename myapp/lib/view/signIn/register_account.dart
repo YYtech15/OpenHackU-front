@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:myapp/utils/authentication.dart';
 
-class CreateAccountPage extends StatefulWidget {
-  const CreateAccountPage({Key? key}) : super(key: key);
+class RegisterAccount extends StatefulWidget {
+  const RegisterAccount({Key? key}) : super(key: key);
 
   @override
-  State<CreateAccountPage> createState() => _CreateAccountPageState();
+  State<RegisterAccount> createState() => _RegisterAccountState();
 }
 
-class _CreateAccountPageState extends State<CreateAccountPage> {
+class _RegisterAccountState extends State<RegisterAccount> {
   TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +24,12 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           width: double.infinity,
           child: Column(
             children: [
               const SizedBox(height: 30),
-              Container(
+              SizedBox(
                 width: 300,
                 child: TextField(
                   controller: nameController,
@@ -37,7 +38,17 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
-                child: Container(
+                child: SizedBox(
+                  width: 300,
+                  child: TextField(
+                    controller: emailController,
+                    decoration: const InputDecoration(hintText: 'メールアドレス', hintStyle: TextStyle(color: Colors.grey)),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: SizedBox(
                   width: 300,
                   child: TextField(
                     controller: passwordController,
@@ -45,20 +56,14 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                   ),
                 ),
               ),
-              Container(
-                width: 300,
-                child: TextField(
-                  controller: confirmPasswordController,
-                  decoration: const InputDecoration(hintText: 'パスワードの確認', hintStyle: TextStyle(color: Colors.grey)),
-                ),
-              ),
-              SizedBox(height: 100),
+              const SizedBox(height: 100),
               ElevatedButton(
-                  onPressed: (){
-                    if(nameController.text.isNotEmpty
-                        && passwordController.text.isNotEmpty
-                        && confirmPasswordController.text.isNotEmpty) {
-                      Navigator.pop(context);
+                  onPressed: () async{
+                    if(nameController.text.isNotEmpty && emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
+                      var result = await Authentication.signUp(email: emailController.text, pass: passwordController.text);
+                      if(result==true) {
+                        Navigator.pop(context);
+                      }
                     }
                     else{ print('全ての項目に入力をして下さい'); }
                   },

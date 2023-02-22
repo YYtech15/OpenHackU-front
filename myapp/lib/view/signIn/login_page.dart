@@ -1,7 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp/utils/authentication.dart';
 import 'package:myapp/view/screen.dart';
-import 'package:myapp/view/signIn/create_account_page.dart';
+import 'package:myapp/view/signIn/register_account.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -16,9 +17,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController nameController = TextEditingController();
-    TextEditingController passwordController = TextEditingController();
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -32,8 +30,8 @@ class _LoginPageState extends State<LoginPage> {
                 child: Container(
                   width: 300,
                   child: TextField(
-                    controller: nameController,
-                    decoration: const InputDecoration(hintText: '名前', hintStyle: TextStyle(color: Colors.grey)),
+                    controller: emailController,
+                    decoration: const InputDecoration(hintText: 'メールアドレス', hintStyle: TextStyle(color: Colors.grey)),
                   ),
                 ),
               ),
@@ -54,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
                           text: 'こちら',
                           style: const TextStyle(color: Colors.blue),
                           recognizer: TapGestureRecognizer()..onTap = (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => const CreateAccountPage()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterAccount()));
                           }
                       ),
                     ]
@@ -62,8 +60,12 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 40),
               ElevatedButton(
-                  onPressed: (){
-                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Screen()));
+                  onPressed: () async{
+                    var result = await Authentication.emailSignIn(email: emailController.text, pass: passwordController.text);
+                    if(result == true)
+                    {
+                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Screen()));
+                    }
                   },
                   child: const Text('ログイン')
               )

@@ -12,7 +12,7 @@ class Screen extends StatefulWidget {
 }
 
 class _ScreenState extends State<Screen> {
-  int selectedIndex = 0;
+  int selectedIndex = 1;
   List<Widget> pageList = [const DataPage(),const HomePage(), const AccountPage()];
 
   @override
