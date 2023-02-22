@@ -41,6 +41,7 @@ dependencies:
   path: ^1.8.3
   path_provider: ^2.0.12
   video_player: ^2.5.1
+  neon_circular_timer: ^0.0.7
 
 dev_dependencies:
   flutter_test:

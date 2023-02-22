@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:neon_circular_timer/neon_circular_timer.dart';
 
 class TimerPage extends StatefulWidget {
   @override
@@ -21,7 +22,7 @@ class _TimerPageState extends State<TimerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.lightGreenAccent,
           elevation: 0,
           iconTheme: const IconThemeData(color: Colors.black),
           title: const Text('タイマー', style: TextStyle(color: Colors.black)),
@@ -34,6 +35,7 @@ class _TimerPageState extends State<TimerPage> {
               DateFormat.Hms().format(_time!),
               style: Theme.of(context).textTheme.displayMedium,
             ),
+            SizedBox(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:myapp/view/user/account_page.dart';
 import 'package:myapp/view/user/data_page.dart';
 import 'package:myapp/view/user/home_page.dart';
-import 'package:myapp/view/user/timer_page.dart';
+import 'package:myapp/view/user/pomodoro_screen.dart';
 
 class Screen extends StatefulWidget {
   const Screen({Key? key}) : super(key: key);
@@ -34,9 +34,9 @@ class _ScreenState extends State<Screen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => TimerPage()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const PomodoroScreen()));
         },
-        child: const Icon(Icons.photo_camera_outlined),
+        child: const Icon(Icons.timer_outlined),
       ),
     );
   }
