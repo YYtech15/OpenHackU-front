@@ -1,8 +1,8 @@
 class Account{
   String id;
   String name;
+  String selfIntroduction;
   String imagePath;
-  String userId;
   DateTime? createdTime;
   DateTime? updatedTime;
 
@@ -10,8 +10,8 @@ class Account{
     {
       this.id='',
       this.name='',
+      this.selfIntroduction='',
       this.imagePath='',
-      this.userId='',
       this.createdTime,
       this.updatedTime
     }

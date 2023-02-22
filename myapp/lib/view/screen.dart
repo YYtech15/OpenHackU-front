@@ -34,7 +34,7 @@ class _ScreenState extends State<Screen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          Navigator.push(context, MaterialPageRoute(builder: (context) => const TimerPage()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => TimerPage()));
         },
         child: const Icon(Icons.photo_camera_outlined),
       ),
