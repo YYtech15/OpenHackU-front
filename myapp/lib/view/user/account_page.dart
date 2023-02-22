@@ -22,20 +22,25 @@ class _AccountPageState extends State<AccountPage> {
   List<Post> postList = [
     Post(
         id: '0',
-        content: '英語',
-        postAccountId: '0',
+        subject: '英語',
+        content: '単語',
+        hours: '1',
+        minutes: '10',
         createdTime: DateTime.now()
     ),
     Post(
         id: '1',
-        content: '数学',
-        postAccountId: '1',
+        subject: '数学',
+        content: '計算',
+        hours: '1',
+        minutes: '10',
         createdTime: DateTime.now()
     ),
     Post(
         id: '2',
-        content: '国語',
-        postAccountId: '2',
+        subject: '国語',
+        content: '漢字',
+        minutes: '30',
         createdTime: DateTime.now()
     ),
   ];
@@ -113,10 +118,12 @@ class _AccountPageState extends State<AccountPage> {
                             padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 15),
                             child: Row(
                               children: [
-                                CircleAvatar(
-                                  radius: 18,
-                                  foregroundImage:NetworkImage(myAccount.imagePath),
+                                Text(postList[index].subject, style: const TextStyle(
+                                    fontSize:18,
+                                    color:Colors.black,
+                                    backgroundColor: Colors.green)
                                 ),
+                                SizedBox(width: 10),
                                 Expanded(
                                   child: Container(
                                     child: Column(
@@ -125,16 +132,22 @@ class _AccountPageState extends State<AccountPage> {
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Row(
+                                            Text(postList[index].content),
+                                            Column(
                                               children: [
-                                                Text(myAccount.name,style: const TextStyle(fontWeight: FontWeight.bold),),
+                                                Row(
+                                                  children: [
+                                                    Text(postList[index].hours + '時間'),
+                                                    Text(postList[index].minutes + '分'),
+                                                  ],
+                                                ),
+                                                SizedBox(height: 5),
+                                                Text(DateFormat('M/d/yy').format(postList[index].createdTime!)),
                                               ],
-                                            ),
-                                            Text(DateFormat('M/d/yy').format(postList[index].createdTime!))
+                                            )
                                           ],
                                         ),
-                                        Text(postList[index].content)
-                                      ],
+                                      ]
                                     ),
                                   ),
                                 ),
