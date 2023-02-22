@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:neon_circular_timer/neon_circular_timer.dart';
 
-
-
 class RestTimer extends StatelessWidget {
-  final CountDownController controller = new CountDownController();
+  RestTimer({super.key});
+  final CountDownController controller = CountDownController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +20,7 @@ class RestTimer extends StatelessWidget {
       Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('休憩用(5分)',style: TextStyle(fontSize: 30)),
+          const Text('休憩用(5分)',style: TextStyle(fontSize: 30)),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 60),
             child: NeonCircularTimer(
@@ -54,19 +54,19 @@ class RestTimer extends StatelessWidget {
                 children: [
                   IconButton(
                       iconSize: 50,
-                      icon: Icon(Icons.play_circle_outline),
+                      icon: const Icon(Icons.play_circle_outline),
                       onPressed: () {
                         controller.resume();
                       }),
                   IconButton(
                       iconSize: 50,
-                      icon: Icon(Icons.pause),
+                      icon: const Icon(Icons.pause),
                       onPressed: () {
                         controller.pause();
                       }),
                   IconButton(
                       iconSize: 50,
-                      icon: Icon(Icons.repeat),
+                      icon: const Icon(Icons.repeat),
                       onPressed: () {
                         controller.restart();
                       }),

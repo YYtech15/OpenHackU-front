@@ -20,6 +20,10 @@ class _ScreenState extends State<Screen> {
     return Scaffold(
       body: pageList[selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.lightBlue,
+        selectedItemColor: Colors.deepOrange,
+        unselectedItemColor: Colors.black,
+        iconSize: 30,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.stacked_bar_chart_outlined), label: ''),
           BottomNavigationBarItem(icon: Icon(Icons.home_outlined), label: ''),

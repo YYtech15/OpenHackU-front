@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:neon_circular_timer/neon_circular_timer.dart';
 
-
 class WorkTimer extends StatelessWidget {
-  final CountDownController controller = new CountDownController();
+  WorkTimer({super.key});
+  final CountDownController controller = CountDownController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
