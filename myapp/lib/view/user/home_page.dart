@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/view/user/camera/camera_page.dart';
-import 'package:myapp/view/user/camera/sample_camera.dart';
+import 'package:myapp/view/camera/camera_page.dart';
+import 'package:myapp/view/camera/sample_camera.dart';
+
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

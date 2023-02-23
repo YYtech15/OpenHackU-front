@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/view/user/timer/work_timer.dart';
-import 'package:myapp/view/user/timer/rest_timer.dart';
-import 'package:myapp/view/user/timer/timer_page.dart';
+import 'package:myapp/view/timer/rest_timer.dart';
+import 'package:myapp/view/timer/timer_page.dart';
+import 'package:myapp/view/timer/work_timer.dart';
 
 class PomodoroScreen extends StatefulWidget {
   const PomodoroScreen({Key? key}) : super(key: key);
