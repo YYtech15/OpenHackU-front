@@ -43,4 +43,20 @@ class UserFireStore{
       return false;
     }
   }
+
+  static Future<dynamic> updateUser(Account updateAccount) async{
+    try{
+      users.doc(updateAccount.id).update({
+        'name': updateAccount.name,
+        'self_introduction': updateAccount.selfIntroduction,
+        'image_path': updateAccount.imagePath,
+        'updated_time': Timestamp.now(),
+      });
+      print('編集完了');
+      return true;
+    } on FirebaseException catch(e){
+      print('編集エラー:$e');
+      return false;
+    }
+  }
 }

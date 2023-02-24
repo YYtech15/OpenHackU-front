@@ -1,9 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp/model/account.dart';
 import 'package:myapp/model/post.dart';
 import 'package:myapp/utils/authentication.dart';
+import 'package:myapp/view/user/account/edit_account_page.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -73,8 +73,13 @@ class _AccountPageState extends State<AccountPage> {
                             ],
                           ),
                           OutlinedButton(
-                              onPressed: (){
-
+                              onPressed: ()async{
+                                var result = await Navigator.push(context, MaterialPageRoute(builder: (context) => const EditAccount()));
+                                if(result == true){
+                                  setState(() {
+                                    myAccount = Authentication.myAccount!;
+                                  });
+                                }
                               },
                               child: const Text('編集'))
                         ],
@@ -123,7 +128,7 @@ class _AccountPageState extends State<AccountPage> {
                                     color:Colors.black,
                                     backgroundColor: Colors.green)
                                 ),
-                                SizedBox(width: 10),
+                                const SizedBox(width: 10),
                                 Expanded(
                                   child: Container(
                                     child: Column(
@@ -137,11 +142,11 @@ class _AccountPageState extends State<AccountPage> {
                                               children: [
                                                 Row(
                                                   children: [
-                                                    Text(postList[index].hours + '時間'),
-                                                    Text(postList[index].minutes + '分'),
+                                                    Text('${postList[index].hours}時間'),
+                                                    Text('${postList[index].minutes}分'),
                                                   ],
                                                 ),
-                                                SizedBox(height: 5),
+                                                const SizedBox(height: 5),
                                                 Text(DateFormat('M/d/yy').format(postList[index].createdTime!)),
                                               ],
                                             )

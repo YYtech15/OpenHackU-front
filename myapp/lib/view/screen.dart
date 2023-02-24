@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/view/studyLog/post_page.dart';
-import 'package:myapp/view/user/account_page.dart';
+import 'package:myapp/view/user/account/account_page.dart';
 import 'package:myapp/view/user/home_page.dart';
 import 'package:myapp/view/user/pomodoro_screen.dart';
 

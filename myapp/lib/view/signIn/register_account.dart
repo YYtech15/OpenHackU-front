@@ -1,12 +1,10 @@
 import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:myapp/model/account.dart';
 import 'package:myapp/utils/authentication.dart';
-import 'package:myapp/utils/firestore.dart';
+import 'package:myapp/utils/firestore_user.dart';
+import 'package:myapp/utils/function/image_func.dart';
 
 class RegisterAccount extends StatefulWidget {
   const RegisterAccount({Key? key}) : super(key: key);
@@ -21,24 +19,6 @@ class _RegisterAccountState extends State<RegisterAccount> {
   TextEditingController passwordController = TextEditingController();
 
   File? image;
-  ImagePicker picker = ImagePicker();
-
-  Future<void> getImageFromGallery() async{
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if(pickedFile != null){
-      setState(() {
-        image = File(pickedFile.path);
-      });
-    }
-  }
-
-  Future<String>upLoadImage(String uid) async{
-    final FirebaseStorage storageInstance = FirebaseStorage.instance;
-    final Reference ref = storageInstance.ref();
-    await ref.child(uid).putFile(image!);
-    String downloadUrl = await storageInstance.ref(uid).getDownloadURL();
-    return downloadUrl;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,8 +37,13 @@ class _RegisterAccountState extends State<RegisterAccount> {
             children: [
               const SizedBox(height: 30),
               GestureDetector(
-                onTap: (){
-                  getImageFromGallery();
+                onTap: () async {
+                  var result = await ImageFunc.getImageFromGallery();
+                  if(result != null){
+                    setState(() {
+                      image = File(result.path);
+                    });
+                  }
                 },
                 child: CircleAvatar(
                   foregroundImage: image == null ? null : FileImage(image!),
@@ -101,7 +86,7 @@ class _RegisterAccountState extends State<RegisterAccount> {
                     if(nameController.text.isNotEmpty && image != null && emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
                       var result = await Authentication.signUp(email: emailController.text, pass: passwordController.text);
                       if(result is UserCredential) {
-                        String imagePath = await upLoadImage(result.user!.uid);
+                        String imagePath = await ImageFunc.upLoadImage(result.user!.uid, image!);
                         Account newAccount = Account(
                           id: result.user!.uid,
                           name: nameController.text,

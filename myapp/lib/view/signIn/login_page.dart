@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/utils/authentication.dart';
-import 'package:myapp/utils/firestore.dart';
+import 'package:myapp/utils/firestore_user.dart';
 import 'package:myapp/view/screen.dart';
 import 'package:myapp/view/signIn/register_account.dart';
 
