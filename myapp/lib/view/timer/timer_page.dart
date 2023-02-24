@@ -21,13 +21,6 @@ class _TimerPageState extends State<TimerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.lightGreenAccent,
-          elevation: 0,
-          iconTheme: const IconThemeData(color: Colors.black),
-          title: const Text('タイマー', style: TextStyle(color: Colors.black)),
-          centerTitle: true,
-        ),
         body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -35,30 +28,48 @@ class _TimerPageState extends State<TimerPage> {
               DateFormat.Hms().format(_time!),
               style: Theme.of(context).textTheme.displayMedium,
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
                   onPressed: () {
                     _timer = Timer.periodic(
-                      Duration(seconds: 1),
+                      const Duration(seconds: 1),
                           (Timer timer) {
                         setState(() {
-                          _time = _time!.add(Duration(seconds: 1));
+                          _time = _time!.add(const Duration(seconds: 1));
                         });
                       },
                     );
                   },
-                  child: Text("Start"),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.lightBlueAccent
+                  ),
+                  child: const Text("Start"),
                 ),
                 SizedBox(width: 50),
                 ElevatedButton(
                   onPressed: () {
                     if (_timer != null && _timer!.isActive) _timer!.cancel();
                   },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.redAccent
+                  ),
                   child: Text("Stop"),
                 ),
+                SizedBox(width: 50),
+                ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    _time = DateTime.utc(0, 0, 0);
+                  });
+                },
+                  style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.lightGreenAccent
+                  ),
+                child: Text("Reset"),
+              ),
               ],
             )
         ]));
