@@ -127,7 +127,7 @@ class _AccountPageState extends State<AccountPage> {
                                 Text(postList[index].subject, style: const TextStyle(
                                     fontSize:18,
                                     color:Colors.black,
-                                    backgroundColor: Colors.green)
+                                    backgroundColor: Colors.yellow)
                                 ),
                                 const SizedBox(width: 10),
                                 Expanded(
