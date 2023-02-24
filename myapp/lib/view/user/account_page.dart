@@ -97,7 +97,11 @@ class _AccountPageState extends State<AccountPage> {
                         )
                     )
                   ),
-                  child: const Text('投稿', style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),),
+                  child: const Text('投稿', style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20),
+                  ),
                 ),
                 Expanded(
                     child: ListView.builder(
