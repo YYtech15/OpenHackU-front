@@ -20,34 +20,69 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+      ),
       body: SingleChildScrollView(
         child: Container(
           width: double.infinity,
           child: Column(
             children: [
               const SizedBox(height: 100),
-              const Text('勉強監視アプリ', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Container(
-                  width: 300,
-                  child: TextField(
-                    controller: emailController,
-                    decoration: const InputDecoration(hintText: 'メールアドレス', hintStyle: TextStyle(color: Colors.grey)),
+                child: SizedBox(
+                  width: 220,
+                  child: Container(
+                    width: 300,
+                    child: TextField(
+                      controller: emailController,
+                      decoration: const InputDecoration(hintText: 'ユーザー名', hintStyle: TextStyle(color: Colors.grey)),
+                    ),
                   ),
                 ),
               ),
-              Container(
-                width: 300,
-                child: TextField(
-                  controller: passwordController,
-                  decoration: const InputDecoration(hintText: 'パスワード', hintStyle: TextStyle(color: Colors.grey)),
+              const SizedBox(height: 70),
+              SizedBox(
+                width: 220,
+                child: Container(
+                  width: 300,
+                  child: TextField(
+                    controller: passwordController,
+                    decoration: const InputDecoration(hintText: 'パスワード', hintStyle: TextStyle(color: Colors.grey)),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 50),
+              SizedBox(
+                width: 220,
+                height: 80,
+                child:
+                ElevatedButton(
+                    onPressed: () async{
+                      var result = await Authentication.emailSignIn(email: emailController.text, pass: passwordController.text);
+                      if(result is UserCredential)
+                      {
+                        var resultGet = await UserFireStore.getUser(result.user!.uid);
+                        if(resultGet == true){
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Screen()));
+                        }
+                      }
+                    },
+                    style: 
+                    ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0))),
+                    child: const Text(
+                      'ログイン',
+                      style: TextStyle(color: Colors.white),
+                    )
                 ),
               ),
               const SizedBox(height: 30),
               RichText(
                 text: TextSpan(
-                    style: TextStyle(color: Colors.black),
+                    style: const TextStyle(
+                        color: Colors.black,
+                      fontSize: 12,
+                    ),
                     children: [
                       const TextSpan(text:'アカウントを作成していない方は'),
                       TextSpan(
@@ -61,19 +96,6 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               const SizedBox(height: 40),
-              ElevatedButton(
-                  onPressed: () async{
-                    var result = await Authentication.emailSignIn(email: emailController.text, pass: passwordController.text);
-                    if(result is UserCredential)
-                    {
-                      var resultGet = await UserFireStore.getUser(result.user!.uid);
-                      if(resultGet == true){
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Screen()));
-                      }
-                    }
-                  },
-                  child: const Text('ログイン')
-              )
             ],
           ),
         ),
