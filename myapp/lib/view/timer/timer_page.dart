@@ -43,6 +43,9 @@ class _TimerPageState extends State<TimerPage> {
                       },
                     );
                   },
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.lightBlueAccent
+                  ),
                   child: const Text("Start"),
                 ),
                 SizedBox(width: 50),
@@ -50,6 +53,9 @@ class _TimerPageState extends State<TimerPage> {
                   onPressed: () {
                     if (_timer != null && _timer!.isActive) _timer!.cancel();
                   },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.redAccent
+                  ),
                   child: Text("Stop"),
                 ),
                 SizedBox(width: 50),
@@ -59,6 +65,9 @@ class _TimerPageState extends State<TimerPage> {
                     _time = DateTime.utc(0, 0, 0);
                   });
                 },
+                  style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.lightGreenAccent
+                  ),
                 child: Text("Reset"),
               ),
               ],

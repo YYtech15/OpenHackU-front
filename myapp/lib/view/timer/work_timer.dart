@@ -46,18 +46,21 @@ class WorkTimer extends StatelessWidget {
                   children: [
                     IconButton(
                         iconSize: 50,
+                        color: Colors.lightBlueAccent,
                         icon: const Icon(Icons.play_circle_outline),
                         onPressed: () {
                           controller.resume();
                         }),
                     IconButton(
                         iconSize: 50,
+                        color: Colors.redAccent,
                         icon: const Icon(Icons.pause),
                         onPressed: () {
                           controller.pause();
                         }),
                     IconButton(
                         iconSize: 50,
+                        color: Colors.lightGreenAccent,
                         icon: const Icon(Icons.repeat),
                         onPressed: () {
                           controller.restart();
