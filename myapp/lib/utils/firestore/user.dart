@@ -3,8 +3,8 @@ import 'package:myapp/model/account.dart';
 import 'package:myapp/utils/authentication.dart';
 
 class UserFireStore{
-  static final _firestoreInstance = FirebaseFirestore.instance;
-  static final CollectionReference users = _firestoreInstance.collection('users');
+  static final firestoreInstance = FirebaseFirestore.instance;
+  static final CollectionReference users = firestoreInstance.collection('users');
 
   static Future<dynamic> setUser(Account newAccount)async{
     try{
@@ -19,8 +19,8 @@ class UserFireStore{
       return true;
     } on FirebaseException catch(e){
       print('新規ユーザー作成エラー：$e');
+      return false;
     }
-    return false;
   }
 
   static Future<dynamic> getUser(String uid) async{

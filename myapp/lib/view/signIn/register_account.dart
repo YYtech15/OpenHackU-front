@@ -87,7 +87,9 @@ class _RegisterAccountState extends State<RegisterAccount> {
                 child:
                 ElevatedButton(
                     onPressed: () async{
-                      if(nameController.text.isNotEmpty && image != null && emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
+                      if(nameController.text.isNotEmpty && image != null
+                          && emailController.text.isNotEmpty
+                          && passwordController.text.isNotEmpty) {
                         var result = await Authentication.signUp(email: emailController.text, pass: passwordController.text);
                         if(result is UserCredential) {
                           String imagePath = await ImageFunc.upLoadImage(result.user!.uid, image!);
@@ -105,9 +107,9 @@ class _RegisterAccountState extends State<RegisterAccount> {
                       else{ print('全ての項目に入力をして下さい'); }
                     },
                     style:
-                    ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0))),
+                      ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0))),
                     child: const Text(
-                        'アカウント作成',
+                      'アカウント作成',
                       style: TextStyle(color: Colors.white),
                     )
                 )

@@ -88,7 +88,8 @@ class _LoginPageState extends State<LoginPage> {
                       TextSpan(
                           text: 'こちら',
                           style: const TextStyle(color: Colors.blue),
-                          recognizer: TapGestureRecognizer()..onTap = (){
+                          recognizer: TapGestureRecognizer()
+                          ..onTap = (){
                             Navigator.push(context, MaterialPageRoute(builder: (context) => const RegisterAccount()));
                           }
                       ),
