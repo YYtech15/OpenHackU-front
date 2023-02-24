@@ -25,7 +25,7 @@ class _PostPageState extends State<PostPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('新規投稿', style: TextStyle(color: Colors.black)),
+        title: const Text('新規投稿', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.lightBlue,
         elevation: 1,
         iconTheme: const IconThemeData(color: Colors.black),
@@ -107,7 +107,8 @@ class _PostPageState extends State<PostPage> {
                           print('投稿失敗');
                         }
                       }
-                    }, child: const Text('投稿')),
+                    }, child: const Text('投稿',style: TextStyle(color: Colors.white)),
+              )
               )
             ],
           ),
