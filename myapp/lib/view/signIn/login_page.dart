@@ -36,7 +36,7 @@ class _LoginPageState extends State<LoginPage> {
                     width: 300,
                     child: TextField(
                       controller: emailController,
-                      decoration: const InputDecoration(hintText: 'ユーザー名', hintStyle: TextStyle(color: Colors.grey)),
+                      decoration: const InputDecoration(hintText: 'メールアドレス', hintStyle: TextStyle(color: Colors.grey)),
                     ),
                   ),
                 ),
@@ -103,3 +103,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+
+
+
