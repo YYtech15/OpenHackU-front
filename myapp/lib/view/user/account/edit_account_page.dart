@@ -1,11 +1,8 @@
 import 'dart:io';
-
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:myapp/model/account.dart';
 import 'package:myapp/utils/authentication.dart';
-import 'package:myapp/utils/firestore_user.dart';
+import 'package:myapp/utils/firestore/user.dart';
 import 'package:myapp/utils/function/image_func.dart';
 
 class EditAccount extends StatefulWidget {

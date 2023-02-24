@@ -1,5 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp/utils/dropdown_list.dart';
+import 'package:myapp/model/post.dart';
+import 'package:myapp/utils/authentication.dart';
+import 'package:myapp/utils/firestore/post.dart';
+
+const  List<String> choices = <String>['国語', '数学', '英語', '理科', '社会'];
 
 class PostPage extends StatefulWidget {
   const PostPage({Key? key}) : super(key: key);
@@ -9,10 +14,11 @@ class PostPage extends StatefulWidget {
 }
 
 class _PostPageState extends State<PostPage> {
-  TextEditingController subjectController = TextEditingController();
   TextEditingController contentController = TextEditingController();
   TextEditingController hoursController = TextEditingController();
   TextEditingController minutesController = TextEditingController();
+  String isSelectedValue = choices.first;
+  String subject = '';
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +37,21 @@ class _PostPageState extends State<PostPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const DropdownList(),
+              DropdownButton(
+                items: choices.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                value: isSelectedValue,
+                onChanged: (String? value) {
+                  setState(() {
+                    isSelectedValue = value!;
+                    subject = value;
+                  });
+                },
+              ),
               SizedBox(
                 width: 300,
                 child: TextField(
@@ -67,9 +87,27 @@ class _PostPageState extends State<PostPage> {
               ),
               const SizedBox(height: 30),
               Center(
-                child: ElevatedButton(onPressed: (){
-
-                }, child: const Text('投稿')),
+                child: ElevatedButton(
+                    onPressed: () async {
+                      if(contentController.text.isNotEmpty){
+                        Post newPost = Post(
+                          subject: subject,
+                          content: contentController.text,
+                          postAccountId: Authentication.myAccount!.id,
+                          hours: hoursController.text,
+                          minutes: minutesController.text,
+                          createdTime: Timestamp.now()
+                        );
+                        var result = await PostFireStore.addPost(newPost);
+                        if(result == true){
+                          print('投稿成功');
+                          Navigator.pop(context);
+                        }
+                        else{
+                          print('投稿失敗');
+                        }
+                      }
+                    }, child: const Text('投稿')),
               )
             ],
           ),

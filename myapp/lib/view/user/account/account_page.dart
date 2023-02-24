@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:myapp/model/account.dart';
@@ -22,7 +23,7 @@ class _AccountPageState extends State<AccountPage> {
         content: '単語',
         hours: '1',
         minutes: '10',
-        createdTime: DateTime.now()
+        createdTime: Timestamp.now()
     ),
     Post(
         id: '1',
@@ -30,14 +31,14 @@ class _AccountPageState extends State<AccountPage> {
         content: '計算',
         hours: '1',
         minutes: '10',
-        createdTime: DateTime.now()
+        createdTime: Timestamp.now()
     ),
     Post(
         id: '2',
         subject: '国語',
         content: '漢字',
         minutes: '30',
-        createdTime: DateTime.now()
+        createdTime: Timestamp.now()
     ),
   ];
 
@@ -147,7 +148,7 @@ class _AccountPageState extends State<AccountPage> {
                                                   ],
                                                 ),
                                                 const SizedBox(height: 5),
-                                                Text(DateFormat('M/d/yy').format(postList[index].createdTime!)),
+                                                Text(DateFormat('M/d/yyyy').format(postList[index].createdTime!.toDate())),
                                               ],
                                             )
                                           ],
