@@ -28,22 +28,22 @@ class _TimerPageState extends State<TimerPage> {
               DateFormat.Hms().format(_time!),
               style: Theme.of(context).textTheme.displayMedium,
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
                   onPressed: () {
                     _timer = Timer.periodic(
-                      Duration(seconds: 1),
+                      const Duration(seconds: 1),
                           (Timer timer) {
                         setState(() {
-                          _time = _time!.add(Duration(seconds: 1));
+                          _time = _time!.add(const Duration(seconds: 1));
                         });
                       },
                     );
                   },
-                  child: Text("Start"),
+                  child: const Text("Start"),
                 ),
                 SizedBox(width: 50),
                 ElevatedButton(
@@ -52,6 +52,15 @@ class _TimerPageState extends State<TimerPage> {
                   },
                   child: Text("Stop"),
                 ),
+                SizedBox(width: 50),
+                ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    _time = DateTime.utc(0, 0, 0);
+                  });
+                },
+                child: Text("Reset"),
+              ),
               ],
             )
         ]));
