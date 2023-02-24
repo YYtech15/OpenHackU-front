@@ -24,11 +24,9 @@ class _RegisterAccountState extends State<RegisterAccount> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
         elevation: 0,
+        leading: const Icon(Icons.arrow_back_ios),
         iconTheme: const IconThemeData(color: Colors.black),
-        title: const Text('新規登録', style: TextStyle(color: Colors.black)),
-        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: SizedBox(
@@ -53,17 +51,19 @@ class _RegisterAccountState extends State<RegisterAccount> {
                   child: const Icon(Icons.add),
                 ),
               ),
+              const SizedBox(height: 30),
               SizedBox(
-                width: 300,
+                width: 220,
                 child: TextField(
                   controller: nameController,
                   decoration: const InputDecoration(hintText: '名前', hintStyle: TextStyle(color: Colors.grey)),
                 ),
               ),
+              const SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: SizedBox(
-                  width: 300,
+                  width: 220,
                   child: TextField(
                     controller: emailController,
                     decoration: const InputDecoration(hintText: 'メールアドレス', hintStyle: TextStyle(color: Colors.grey)),
@@ -73,34 +73,45 @@ class _RegisterAccountState extends State<RegisterAccount> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: SizedBox(
-                  width: 300,
+                  width: 220,
                   child: TextField(
                     controller: passwordController,
                     decoration: const InputDecoration(hintText: 'パスワード', hintStyle: TextStyle(color: Colors.grey)),
                   ),
                 ),
               ),
-              const SizedBox(height: 100),
-              ElevatedButton(
-                  onPressed: () async{
-                    if(nameController.text.isNotEmpty && image != null && emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
-                      var result = await Authentication.signUp(email: emailController.text, pass: passwordController.text);
-                      if(result is UserCredential) {
-                        String imagePath = await ImageFunc.upLoadImage(result.user!.uid, image!);
-                        Account newAccount = Account(
-                          id: result.user!.uid,
-                          name: nameController.text,
-                          imagePath: imagePath,
-                        );
-                        var resultSet = await UserFireStore.setUser(newAccount);
-                        if (resultSet== true) {
-                          Navigator.pop(context);
+              const SizedBox(height: 50),
+              SizedBox(
+                width: 220,
+                height: 80,
+                child:
+                ElevatedButton(
+                    onPressed: () async{
+                      if(nameController.text.isNotEmpty && image != null && emailController.text.isNotEmpty && passwordController.text.isNotEmpty) {
+                        var result = await Authentication.signUp(email: emailController.text, pass: passwordController.text);
+                        if(result is UserCredential) {
+                          String imagePath = await ImageFunc.upLoadImage(result.user!.uid, image!);
+                          Account newAccount = Account(
+                            id: result.user!.uid,
+                            name: nameController.text,
+                            imagePath: imagePath,
+                          );
+                          var resultSet = await UserFireStore.setUser(newAccount);
+                          if (resultSet== true) {
+                            Navigator.pop(context);
+                          }
                         }
                       }
-                    }
-                    else{ print('全ての項目に入力をして下さい'); }
-                  },
-                  child: const Text('アカウント作成'))
+                      else{ print('全ての項目に入力をして下さい'); }
+                    },
+                    style:
+                    ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0))),
+                    child: const Text(
+                        'アカウント作成',
+                      style: TextStyle(color: Colors.white),
+                    )
+                )
+              )
             ],
           ),
         ),
