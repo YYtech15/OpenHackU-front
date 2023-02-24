@@ -9,20 +9,12 @@ class RestTimer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.lightBlueAccent,
-        elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.black),
-        title: const Text('ポモドーロタイマー', style: TextStyle(color: Colors.black)),
-        centerTitle: true,
-      ),
-      body:
-      Column(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text('休憩用(5分)',style: TextStyle(fontSize: 30)),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 60),
+            padding: const EdgeInsets.symmetric(vertical: 50),
             child: NeonCircularTimer(
                 onComplete: () {
                   controller.restart();

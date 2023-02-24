@@ -21,13 +21,6 @@ class _TimerPageState extends State<TimerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.lightGreenAccent,
-          elevation: 0,
-          iconTheme: const IconThemeData(color: Colors.black),
-          title: const Text('タイマー', style: TextStyle(color: Colors.black)),
-          centerTitle: true,
-        ),
         body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
