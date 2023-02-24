@@ -40,7 +40,7 @@ class _ScreenState extends State<Screen> {
         onPressed: (){
           Navigator.push(context, MaterialPageRoute(builder: (context) => const PostPage()));
         },
-        child: const Icon(Icons.comment_outlined),
+        child: const Icon(Icons.comment_outlined, color: Colors.white),
       ),
     );
   }

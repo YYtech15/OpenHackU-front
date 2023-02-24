@@ -21,7 +21,21 @@ class _PomodoroScreenState extends State<PomodoroScreen> {
       length: 3, // タブの数
       child: Scaffold(
         appBar: AppBar(
-          title: const Center(child: Text('各種タイマー')),
+          title: Container(
+              alignment: Alignment.center,
+              width: double.infinity,
+              decoration: const BoxDecoration(
+                  border: Border(
+                      top: BorderSide(
+                          color: Colors.white
+                      ),
+                      bottom: BorderSide(
+                          color: Colors.white
+                      )
+                  )
+              ),
+              child: const Text('タイマー',style: TextStyle(color:Colors.white, fontSize: 25),)
+          ),
           bottom: TabBar(
             tabs: const <Widget>[
               Tab(icon: Icon(Icons.create)),
