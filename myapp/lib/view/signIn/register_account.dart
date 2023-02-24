@@ -22,99 +22,113 @@ class _RegisterAccountState extends State<RegisterAccount> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        leading: const Icon(Icons.arrow_back_ios),
-        iconTheme: const IconThemeData(color: Colors.black),
-      ),
-      body: SingleChildScrollView(
-        child: SizedBox(
-          width: double.infinity,
-          child: Column(
-            children: [
-              const SizedBox(height: 30),
-              GestureDetector(
-                onTap: () async {
-                  var result = await ImageFunc.getImageFromGallery();
-                  if(result != null){
-                    setState(() {
-                      image = File(result.path);
-                    });
-                  }
-                },
-                child: CircleAvatar(
-                  foregroundImage: image == null ? null : FileImage(image!),
-                  radius: 40,
-                  foregroundColor: Colors.white,
-                  backgroundColor: Colors.blue,
-                  child: const Icon(Icons.add),
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: SizedBox(
+            width: double.infinity,
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 30,
+                      child: IconButton(
+                        icon: const Icon(Icons.arrow_back, size: 40,),
+                        onPressed: (){
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              const SizedBox(height: 30),
-              SizedBox(
-                width: 220,
-                child: TextField(
-                  controller: nameController,
-                  decoration: const InputDecoration(hintText: '名前', hintStyle: TextStyle(color: Colors.grey)),
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 25),
+                  child: Text('新規アカウント作成',style: TextStyle(fontSize: 25),),
                 ),
-              ),
-              const SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: SizedBox(
-                  width: 220,
-                  child: TextField(
-                    controller: emailController,
-                    decoration: const InputDecoration(hintText: 'メールアドレス', hintStyle: TextStyle(color: Colors.grey)),
+                GestureDetector(
+                  onTap: () async {
+                    var result = await ImageFunc.getImageFromGallery();
+                    if(result != null){
+                      setState(() {
+                        image = File(result.path);
+                      });
+                    }
+                  },
+                  child: CircleAvatar(
+                    foregroundImage: image == null ? null : FileImage(image!),
+                    radius: 40,
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.blue,
+                    child: const Icon(Icons.add),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: SizedBox(
+                const SizedBox(height: 30),
+                SizedBox(
                   width: 220,
                   child: TextField(
-                    controller: passwordController,
-                    decoration: const InputDecoration(hintText: 'パスワード', hintStyle: TextStyle(color: Colors.grey)),
+                    controller: nameController,
+                    decoration: const InputDecoration(hintText: '名前', hintStyle: TextStyle(color: Colors.grey)),
                   ),
                 ),
-              ),
-              const SizedBox(height: 50),
-              SizedBox(
-                width: 220,
-                height: 80,
-                child:
-                ElevatedButton(
-                    onPressed: () async{
-                      if(nameController.text.isNotEmpty && image != null
-                          && emailController.text.isNotEmpty
-                          && passwordController.text.isNotEmpty) {
-                        var result = await Authentication.signUp(email: emailController.text, pass: passwordController.text);
-                        if(result is UserCredential) {
-                          String imagePath = await ImageFunc.upLoadImage(result.user!.uid, image!);
-                          Account newAccount = Account(
-                            id: result.user!.uid,
-                            name: nameController.text,
-                            imagePath: imagePath,
-                          );
-                          var resultSet = await UserFireStore.setUser(newAccount);
-                          if (resultSet== true) {
-                            Navigator.pop(context);
+                const SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: SizedBox(
+                    width: 220,
+                    child: TextField(
+                      controller: emailController,
+                      decoration: const InputDecoration(hintText: 'メールアドレス', hintStyle: TextStyle(color: Colors.grey)),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: SizedBox(
+                    width: 220,
+                    child: TextField(
+                      controller: passwordController,
+                      decoration: const InputDecoration(hintText: 'パスワード', hintStyle: TextStyle(color: Colors.grey)),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 50),
+                SizedBox(
+                  width: 220,
+                  height: 80,
+                  child:
+                  ElevatedButton(
+                      onPressed: () async{
+                        if(nameController.text.isNotEmpty && image != null
+                            && emailController.text.isNotEmpty
+                            && passwordController.text.isNotEmpty) {
+                          var result = await Authentication.signUp(email: emailController.text, pass: passwordController.text);
+                          if(result is UserCredential) {
+                            String imagePath = await ImageFunc.upLoadImage(result.user!.uid, image!);
+                            Account newAccount = Account(
+                              id: result.user!.uid,
+                              name: nameController.text,
+                              imagePath: imagePath,
+                            );
+                            var resultSet = await UserFireStore.setUser(newAccount);
+                            if (resultSet== true) {
+                              Navigator.pop(context);
+                            }
                           }
                         }
-                      }
-                      else{ print('全ての項目に入力をして下さい'); }
-                    },
-                    style:
-                      ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0))),
-                    child: const Text(
-                      'アカウント作成',
-                      style: TextStyle(color: Colors.white),
-                    )
+                        else{ print('全ての項目に入力をして下さい'); }
+                      },
+                      style:
+                        ElevatedButton.styleFrom(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0))),
+                      child: const Text(
+                        'アカウント作成',
+                        style: TextStyle(color: Colors.white),
+                      )
+                  )
                 )
-              )
-            ],
+              ],
+            ),
           ),
         ),
       ),
