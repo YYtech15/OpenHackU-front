@@ -96,7 +96,7 @@ class _PostPageState extends State<PostPage> {
                           postAccountId: Authentication.myAccount!.id,
                           hours: hoursController.text,
                           minutes: minutesController.text,
-                          createdTime: Timestamp.now()
+                          createdTime: DateTime.now()
                         );
                         var result = await PostFireStore.addPost(newPost);
                         if(result == true){

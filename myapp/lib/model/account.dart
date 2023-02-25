@@ -5,8 +5,8 @@ class Account{
   String name;
   String selfIntroduction;
   String imagePath;
-  Timestamp? createdTime;
-  Timestamp? updatedTime;
+  DateTime? createdTime;
+  DateTime? updatedTime;
 
   Account(
     {

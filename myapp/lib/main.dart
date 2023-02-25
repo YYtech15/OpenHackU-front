@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:myapp/view/signIn/sample_login_page.dart';
 import 'package:myapp/view/signIn/login_page.dart';
 
 void main()async{
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
       ),
-      home: const LoginPage(),
+      home: SampleLoginPage(),
     );
   }
 }

@@ -7,7 +7,8 @@ class Post{
   String postAccountId;
   String hours;
   String minutes;
-  Timestamp? createdTime;
+  DateTime? createdTime;
+  DateTime? updatedTime;
 
   Post(
       {
@@ -17,7 +18,8 @@ class Post{
         this.postAccountId='',
         this.hours = '0',
         this.minutes = '0',
-        this.createdTime
+        this.createdTime,
+        this.updatedTime
       }
   );
 }

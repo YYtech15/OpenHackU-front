@@ -6,14 +6,15 @@ import 'package:myapp/model/post.dart';
 import 'package:myapp/utils/authentication.dart';
 import 'package:myapp/view/user/account/edit_account_page.dart';
 
-class AccountPage extends StatefulWidget {
-  const AccountPage({Key? key}) : super(key: key);
+
+class SampleAccountPage extends StatefulWidget {
+  const SampleAccountPage({Key? key}) : super(key: key);
 
   @override
-  State<AccountPage> createState() => _AccountPageState();
+  State<SampleAccountPage> createState() => _SampleAccountPageState();
 }
 
-class _AccountPageState extends State<AccountPage> {
+class _SampleAccountPageState extends State<SampleAccountPage> {
   Account myAccount = Authentication.myAccount!;
 
   List<Post> postList = [
@@ -94,14 +95,14 @@ class _AccountPageState extends State<AccountPage> {
                   alignment: Alignment.center,
                   width: double.infinity,
                   decoration: const BoxDecoration(
-                    border: Border(
-                        top: BorderSide(
-                        color: Colors.lightBlueAccent, width: 3
-                        ),
-                        bottom: BorderSide(
-                        color: Colors.lightBlueAccent, width: 3
-                        )
-                    )
+                      border: Border(
+                          top: BorderSide(
+                              color: Colors.lightBlueAccent, width: 3
+                          ),
+                          bottom: BorderSide(
+                              color: Colors.lightBlueAccent, width: 3
+                          )
+                      )
                   ),
                   child: const Text('投稿', style: TextStyle(
                       color: Colors.blue,
@@ -133,27 +134,27 @@ class _AccountPageState extends State<AccountPage> {
                                 Expanded(
                                   child: Container(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(postList[index].content),
-                                            Column(
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Text('${postList[index].hours}時間'),
-                                                    Text('${postList[index].minutes}分'),
-                                                  ],
-                                                ),
-                                                const SizedBox(height: 5),
-                                                Text(DateFormat('M/d/yyyy').format(postList[index].createdTime!)),
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ]
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(postList[index].content),
+                                              Column(
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Text('${postList[index].hours}時間'),
+                                                      Text('${postList[index].minutes}分'),
+                                                    ],
+                                                  ),
+                                                  const SizedBox(height: 5),
+                                                  Text(DateFormat('M/d/yyyy').format(postList[index].createdTime!)),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ]
                                     ),
                                   ),
                                 ),
