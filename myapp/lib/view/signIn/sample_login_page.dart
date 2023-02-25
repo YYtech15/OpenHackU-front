@@ -64,7 +64,7 @@ class _SampleLoginPageState extends State<SampleLoginPage> {
                         var result = await Authentication.emailSignIn(email: emailController.text, pass: passwordController.text);
                         if(result is UserCredential)
                         {
-                          var resultGet = await DatabaseUser.(result.user!.uid);
+                          var resultGet = await DatabaseUser.getUser(result.user!.uid);
                           if(resultGet == true){
                               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MyHomePage()
                             ));

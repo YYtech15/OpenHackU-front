@@ -93,18 +93,24 @@ class DatabaseUser {
 
   static Future<dynamic> getUser(String uid) async{
     try{
-
-      Map<String, dynamic> data = documentSnapshot.data() as Map<String, dynamic>;
-      Account myAccount = Account(
-          id: uid,
-          name: data['name'],
-          selfIntroduction: data['self_introduction'],
-          imagePath: data['image_path'],
-          createdTime: data['created_time'],
-          updatedTime: data['updated_time']
+      Database? db = await instance.database;
+      var cat = [];
+      final result = await db!.query(
+        userTable,
+        where: 'id = ?',
+        whereArgs: [uid],
       );
-      print('ユーザーデータ取得');
-      Authentication.myAccount = myAccount;
+      print(result);
+      // Account myAccount = Account(
+      //     id: uid,
+      //     name: ,
+      //     selfIntroduction: data['self_introduction'],
+      //     imagePath: data['image_path'],
+      //     createdTime: data['created_time'],
+      //     updatedTime: data['updated_time']
+      // );
+      // print('ユーザーデータ取得');
+      // Authentication.myAccount = myAccount;
       return true;
     } on FirebaseException catch(e){
       print('ユーザーデータ取得エラー:$e');
@@ -138,7 +144,7 @@ class DatabaseUser {
   // レコード数を確認
   static Future<int?> queryRowCount() async {
     Database? db = await instance.database;
-    return Sqflite.firstIntValue(await db!.rawQuery('SELECT COUNT(*) FROM $userTable'));
+    await db!.rawQuery('SELECT COUNT(*) FROM $userTable');
   }
 
   //　更新処理
